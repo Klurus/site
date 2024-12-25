@@ -1,0 +1,18 @@
+server {
+    listen 80;
+    server_name your_domain.com;  # Замените на ваш домен или IP
+
+    root /var/www/html;  # Укажите корневую папку для вашего веб-приложения
+    index index.php index.html index.htm;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;  # Убедитесь, что версия PHP корректная
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+}
