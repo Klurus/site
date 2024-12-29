@@ -1,6 +1,8 @@
 server {
     listen 80;
-    server_name your_domain.com;  # Замените на ваш домен или IP
+    server_name site.ru;  # Замените на ваш домен или IP
+
+    return 301 http://192.168.0.2$request_uri;
 
     root /var/www/html;  # Укажите корневую папку для вашего веб-приложения
     index index.php index.html index.htm;
@@ -11,7 +13,7 @@ server {
 
     location ~ \.php$ {
         include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/var/run/php/php7.4-fpm.sock;  # Убедитесь, что версия PHP корректная
+        fastcgi_pass unix:/var/run/php/php8.1-fpm.sock;  
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         include fastcgi_params;
     }
